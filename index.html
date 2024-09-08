@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <title>Frontend Mentor | Product list with cart</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header>
+    <h1>Desserts</h1>
+  </header>
+  <main>
+    <div class="products-container">
+      <div class="product">
+        <h2>Waffle with Berries</h2>
+        <img src="assets/images/image-waffle-desktop.jpg" alt="Waffle with Berries">
+        <p>Waffle</p>
+        <p>$6.50</p>
+        <button class="add-to-cart" data-id="1">Add to Cart</button>
+      </div>
+      <div class="product">
+        <h2>Vanilla Bean Crème Brûlée</h2>
+        <img src="assets/images/image-creme-brulee-desktop.jpg" alt="Vanilla Bean Crème Brûlée">
+        <p>Crème Brûlée</p>
+        <p>$7.00</p>
+        <button class="add-to-cart" data-id="2">Add to Cart</button>
+      </div>
+      <div class="product">
+        <h2>Macaron Mix of Five</h2>
+        <img src="assets/images/image-macaron-desktop.jpg" alt="Macaron Mix of Five">
+        <p>Macaron</p>
+        <p>$8.00</p>
+        <button class="add-to-cart" data-id="3">Add to Cart</button>
+      </div>
+      <div class="product">
+        <h2>Classic Tiramisu</h2>
+        <img src="assets/images/image-tiramisu-desktop.jpg" alt="Classic Tiramisu">
+        <p>Tiramisu</p>
+        <p>$5.50</p>
+        <button class="add-to-cart" data-id="4">Add to Cart</button>
+      </div>
+      <div class="product">
+        <h2>Pistachio Baklava</h2>
+        <img src="assets/images/image-baklava-desktop.jpg" alt="Pistachio Baklava">
+        <p>Baklava</p>
+        <p>$4.00</p>
+        <button class="add-to-cart" data-id="5">Add to Cart</button>
+      </div>
+      <div class="product">
+        <h2>Lemon Meringue Pie</h2>
+        <img src="assets/images/image-meringue-desktop.jpg" alt="Lemon Meringue Pie">
+        <p>Pie</p>
+        <p>$5.00</p>
+        <button class="add-to-cart" data-id="6">Add to Cart</button>
+      </div>
+      <div class="product">
+        <h2>Red Velvet Cake</h2>
+        <img src="assets/images/image-cake-desktop.jpg" alt="Red Velvet Cake">
+        <p>Cake</p>
+        <p>$4.50</p>
+        <button class="add-to-cart" data-id="7">Add to Cart</button>
+      </div>
+      <div class="product">
+        <h2>Salted Caramel Brownie</h2>
+        <img src="assets/images/image-brownie-desktop.jpg" alt="Salted Caramel Brownie">
+        <p>Brownie</p>
+        <p>$4.50</p>
+        <button class="add-to-cart" data-id="8">Add to Cart</button>
+      </div>
+      <div class="product">
+        <h2>Vanilla Panna Cotta</h2>
+        <img src="assets/images/image-panna-cotta-desktop.jpg" alt="Vanilla Panna Cotta">
+        <p>Panna Cotta</p>
+        <p>$6.50</p>
+        <button class="add-to-cart" data-id="9">Add to Cart</button>
+      </div>
+    </div>
+    <div class="cart-container">
+      <h2>Your Cart (<span class="cart-quantity">0</span>)</h2>
+      <ul class="cart-list"></ul>
+      <button class="clear-cart">Clear Cart</button>
+      <button class="confirm-order">Confirm Order</button>
+    </div>
+  </main>
+  <div class="modal">
+    <div class="modal-content">
+      <h2>Order Confirmation</h2>
+      <p>Thank you for your order!</p>
+    </div>
+  </div>
+
+  <script>
+    // Get the cart container and cart list elements
+    const cartContainer = document.querySelector('.cart-container');
+    const cartList = document.querySelector('.cart-list');
+    const cartQuantity = document.querySelector('.cart-quantity');
+    const clearCartButton = document.querySelector('.clear-cart');
+    const confirmOrderButton = document.querySelector('.confirm-order');
+    const modal = document.querySelector('.modal');
+
+    // Initialize an empty cart
+    let cart = [];
+
+    // Add event listeners to the "Add to Cart" buttons
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+      button.addEventListener('click', event => {
+        const productId = event.target.dataset.id;
+        const product = {
+          id: productId,
+          name: event.target.parentNode.querySelector('h2').textContent,
+          price: event.target.parentNode.querySelector('p:nth-child(3)').textContent
+        };
+        cart.push(product);
+        updateCart();
+      });
+    });
+
+    // Update the cart display
+    function updateCart() {
+      cartList.innerHTML = '';
+      cart.forEach(product => {
+        const cartItem = document.createElement('li');
+        cartItem.textContent = `${product.name} - ${product.price}`;
+        cartList.appendChild(cartItem);
+      });
+      cartQuantity.textContent = cart.length;
+    }
+
+    // Clear the cart
+    clearCartButton.addEventListener('click', () => {
+      cart = [];
+      updateCart();
+    });
+
+    // Confirm the order
+    confirmOrderButton.addEventListener('click', () => {
+      modal.classList.add('show-modal');
+    });
+
+    // Close the modal
+    modal.addEventListener('click', event => {
+      if (event.target === modal) {
+        modal.classList.remove('show-modal');
+      }
+    });
+  </script>
+  
+ <div class="attribution">
+  Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
+  Coded by <a href="#">Lindokuhle Jali</a>.
+</div>
+</body>
+</html>
