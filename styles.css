@@ -175,4 +175,5 @@ main {
   transform: translate(-50%, -50%);
   background-color: #fff; /* white background */
   padding: 1em;
-  border: 1px solid #666; /* iron */
+  border: 1px solid #666;
+ } /* iron */
